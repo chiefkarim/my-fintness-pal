@@ -15,9 +15,8 @@ import { createFoodEntry, updateFoodEntry, deleteFoodEntry } from '@/lib/actions
 
 interface FoodEntry {
   id: string;
-  userId: string;
   date: string;
-  timestamp: Date;
+  timestamp: string | Date;
   name: string;
   calories: number;
   protein: number;
