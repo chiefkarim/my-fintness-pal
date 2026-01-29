@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 const USDA_API_KEY = process.env.USDA_API_KEY || '';
-const USDA_BASE_URL = 'https://fdc.nal.usda.gov/api/foods/search';
+const USDA_BASE_URL = 'https://api.nal.usda.gov/fdc/v1/foods/search';
 
 export interface USDASearchResult {
   fdcId: number;

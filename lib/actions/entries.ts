@@ -113,3 +113,21 @@ export async function getDailyTotals() {
     fat: entries.reduce((sum: number, e: any) => sum + e.fat, 0),
   };
 }
+
+export async function getAllEntries() {
+  const session = await auth();
+  if (!session?.user?.id) {
+    throw new Error('Not authenticated');
+  }
+
+  const prisma = getPrisma();
+
+  return prisma.foodEntry.findMany({
+    where: {
+      userId: session.user.id,
+    },
+    orderBy: {
+      timestamp: 'desc',
+    },
+  });
+}

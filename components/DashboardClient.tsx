@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { FoodEntryForm } from '@/components/FoodEntryForm';
+import Link from 'next/link';
 import { DashboardSummary } from '@/components/DashboardSummary';
 import { DiaryList, DiaryEntry } from '@/components/DiaryList';
 import { Button } from '@/components/ui/button';
@@ -34,7 +35,12 @@ export function DashboardClient({ entries, totals, goals, dateLabel }: Dashboard
           <h1 className="text-3xl font-bold">Dashboard</h1>
           <p className="text-sm text-muted-foreground">{dateLabel}</p>
         </div>
-        <FoodEntryForm onSuccess={handleChange} />
+        <div className="flex flex-wrap gap-2">
+          <Link href="/add" className="inline-flex">
+            <Button variant="outline">Add from USDA</Button>
+          </Link>
+          <FoodEntryForm onSuccess={handleChange} />
+        </div>
       </div>
 
       <DashboardSummary totals={totals} goals={goals} />
