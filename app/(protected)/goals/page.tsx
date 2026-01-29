@@ -1,13 +1,6 @@
 import { GoalsForm } from '@/components/GoalsForm';
-import { auth } from '@/auth';
-import { redirect } from 'next/navigation';
 
-export default async function GoalsPage() {
-  const session = await auth();
-  if (!session) {
-    redirect('/auth/signin');
-  }
-
+export default function GoalsPage() {
   return (
     <div className="min-h-screen bg-background">
       <div className="mx-auto max-w-4xl px-4 py-8">

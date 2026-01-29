@@ -1,10 +1,7 @@
 'use server';
 
-import { db } from '@/lib/db';
-import { dailyGoals } from '@/lib/db/schema';
+import { getPrisma } from '@/lib/db';
 import { auth } from '@/auth';
-import { eq } from 'drizzle-orm';
-import { nanoid } from 'nanoid';
 
 export async function setDailyGoals(data: {
   calories: number;
@@ -17,23 +14,24 @@ export async function setDailyGoals(data: {
     throw new Error('Not authenticated');
   }
 
+  const prisma = getPrisma();
+
   // Check if goals exist
-  const existing = await db
-    .select()
-    .from(dailyGoals)
-    .where(eq(dailyGoals.userId, session.user.id))
-    .get();
+  const existing = await prisma.dailyGoals.findUnique({
+    where: { userId: session.user.id },
+  });
 
   if (existing) {
-    return db
-      .update(dailyGoals)
-      .set(data)
-      .where(eq(dailyGoals.userId, session.user.id));
+    return prisma.dailyGoals.update({
+      where: { userId: session.user.id },
+      data,
+    });
   } else {
-    return db.insert(dailyGoals).values({
-      id: nanoid(),
-      userId: session.user.id,
-      ...data,
+    return prisma.dailyGoals.create({
+      data: {
+        userId: session.user.id,
+        ...data,
+      },
     });
   }
 }
@@ -44,11 +42,10 @@ export async function getDailyGoals() {
     throw new Error('Not authenticated');
   }
 
-  const goals = await db
-    .select()
-    .from(dailyGoals)
-    .where(eq(dailyGoals.userId, session.user.id))
-    .get();
+  const prisma = getPrisma();
+  const goals = await prisma.dailyGoals.findUnique({
+    where: { userId: session.user.id },
+  });
 
   // Default goals if none set
   return (

@@ -12,7 +12,19 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { createFoodEntry, updateFoodEntry, deleteFoodEntry } from '@/lib/actions/entries';
-import { FoodEntry } from '@/lib/db/schema';
+
+interface FoodEntry {
+  id: string;
+  userId: string;
+  date: string;
+  timestamp: Date;
+  name: string;
+  calories: number;
+  protein: number;
+  carbs: number;
+  fat: number;
+  serving: string;
+}
 
 interface FoodEntryFormProps {
   entry?: FoodEntry;
@@ -31,7 +43,7 @@ export function FoodEntryForm({ entry, onSuccess }: FoodEntryFormProps) {
     serving: entry?.serving || '',
   });
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
 
