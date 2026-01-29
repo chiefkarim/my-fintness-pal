@@ -30,7 +30,7 @@ export default function SignUp() {
       });
 
       if (result?.ok) {
-        router.push('/');
+        router.push('/dashboard');
       } else {
         setError('Sign up successful but sign in failed. Please sign in manually.');
       }

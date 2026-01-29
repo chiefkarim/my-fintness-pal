@@ -12,7 +12,7 @@ export default function GoalsPage() {
         <GoalsForm />
 
         <div className="mt-8">
-          <a href="/" className="text-primary hover:underline">
+          <a href="/dashboard" className="text-primary hover:underline">
             ← Back to dashboard
           </a>
         </div>

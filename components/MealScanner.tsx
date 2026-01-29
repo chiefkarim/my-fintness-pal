@@ -124,7 +124,7 @@ export function MealScanner() {
   };
 
   const handleAdded = () => {
-    router.push('/');
+    router.push('/dashboard');
     router.refresh();
   };
 

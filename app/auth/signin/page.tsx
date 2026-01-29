@@ -23,7 +23,7 @@ function SignInContent() {
     });
 
     if (result?.ok) {
-      router.push('/');
+      router.push('/dashboard');
     } else {
       setIsLoading(false);
     }

@@ -24,7 +24,7 @@ export function AddFoodClient() {
   };
 
   const handleAdded = () => {
-    router.push('/');
+    router.push('/dashboard');
     router.refresh();
   };
 
@@ -35,7 +35,7 @@ export function AddFoodClient() {
           <h1 className="text-3xl font-bold">Add Food</h1>
           <p className="text-sm text-muted-foreground">Search the USDA database to log meals.</p>
         </div>
-        <Button variant="outline" onClick={() => router.push('/')}
+        <Button variant="outline" onClick={() => router.push('/dashboard')}
         >
           Back to dashboard
         </Button>
