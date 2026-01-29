@@ -1,4 +1,5 @@
 import { DashboardClient } from '@/components/DashboardClient';
+import type { DiaryEntry } from '@/components/DiaryList';
 import { getTodayEntries, getDailyTotals } from '@/lib/actions/entries';
 import { getDailyGoals } from '@/lib/actions/goals';
 
@@ -11,6 +12,15 @@ function formatDateLabel(date: Date) {
   });
 }
 
+type RawEntry = Awaited<ReturnType<typeof getTodayEntries>>[number];
+
+function serializeEntry(entry: RawEntry): DiaryEntry {
+  return {
+    ...entry,
+    timestamp: entry.timestamp.toISOString(),
+  };
+}
+
 export default async function Home() {
   const [entries, totals, goals] = await Promise.all([
     getTodayEntries(),
@@ -18,10 +28,7 @@ export default async function Home() {
     getDailyGoals(),
   ]);
 
-  const serializedEntries = entries.map((entry) => ({
-    ...entry,
-    timestamp: entry.timestamp.toISOString(),
-  }));
+  const serializedEntries = entries.map(serializeEntry);
 
   return (
     <DashboardClient
