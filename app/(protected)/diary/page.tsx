@@ -1,8 +1,9 @@
 import { DiaryHistoryClient } from '@/components/DiaryHistoryClient';
+import type { DiaryEntry } from '@/components/DiaryList';
 import { getAllEntries } from '@/lib/actions/entries';
 
-function groupEntriesByDate(entries: Array<{ date: string }>) {
-  return entries.reduce<Record<string, typeof entries>>((acc, entry) => {
+function groupEntriesByDate(entries: DiaryEntry[]): Record<string, DiaryEntry[]> {
+  return entries.reduce<Record<string, DiaryEntry[]>>((acc, entry) => {
     if (!acc[entry.date]) {
       acc[entry.date] = [];
     }
@@ -13,7 +14,7 @@ function groupEntriesByDate(entries: Array<{ date: string }>) {
 
 export default async function DiaryPage() {
   const entries = await getAllEntries();
-  const serializedEntries = entries.map((entry) => ({
+  const serializedEntries: DiaryEntry[] = entries.map((entry) => ({
     ...entry,
     timestamp: entry.timestamp.toISOString(),
   }));
