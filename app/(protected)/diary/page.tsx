@@ -12,12 +12,18 @@ function groupEntriesByDate(entries: DiaryEntry[]): Record<string, DiaryEntry[]>
   }, {});
 }
 
-export default async function DiaryPage() {
-  const entries = await getAllEntries();
-  const serializedEntries: DiaryEntry[] = entries.map((entry) => ({
+type RawEntry = Awaited<ReturnType<typeof getAllEntries>>[number];
+
+function serializeEntry(entry: RawEntry): DiaryEntry {
+  return {
     ...entry,
     timestamp: entry.timestamp.toISOString(),
-  }));
+  };
+}
+
+export default async function DiaryPage() {
+  const entries = await getAllEntries();
+  const serializedEntries = entries.map(serializeEntry);
   const grouped = groupEntriesByDate(serializedEntries);
 
   return (
