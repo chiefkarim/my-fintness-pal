@@ -10,7 +10,8 @@ export async function searchFoods(query: string): Promise<USDASearchResult[]> {
   try {
     const response = await fetch(`/api/usda?query=${encodeURIComponent(query)}`);
     if (!response.ok) {
-      console.error('Search failed:', response.statusText);
+      const errorBody = await response.text();
+      console.error('Search failed:', response.status, response.statusText, errorBody);
       return [];
     }
 

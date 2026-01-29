@@ -24,6 +24,9 @@ export function ProtectedNav() {
             <Link href="/diary" className="transition hover:text-foreground">
               Diary
             </Link>
+            <Link href="/scan" className="transition hover:text-foreground">
+              Scan
+            </Link>
             <Link href="/goals" className="transition hover:text-foreground">
               Goals
             </Link>
@@ -41,6 +44,25 @@ export function ProtectedNav() {
             Logout
           </Button>
         </div>
+      </div>
+      <div className="border-t bg-white sm:hidden">
+        <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-2 text-xs text-muted-foreground">
+          <Link href="/" className="transition hover:text-foreground">
+            Dashboard
+          </Link>
+          <Link href="/add" className="transition hover:text-foreground">
+            Add Food
+          </Link>
+          <Link href="/diary" className="transition hover:text-foreground">
+            Diary
+          </Link>
+          <Link href="/scan" className="transition hover:text-foreground">
+            Scan
+          </Link>
+          <Link href="/goals" className="transition hover:text-foreground">
+            Goals
+          </Link>
+        </nav>
       </div>
     </header>
   )

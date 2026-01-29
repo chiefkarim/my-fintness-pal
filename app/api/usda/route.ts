@@ -35,7 +35,8 @@ export async function GET(request: NextRequest) {
 
     const response = await fetch(`${USDA_BASE_URL}?${params}`);
     if (!response.ok) {
-      console.error('USDA API error:', response.statusText);
+      const errorBody = await response.text();
+      console.error('USDA API error:', response.status, response.statusText, errorBody);
       return NextResponse.json({ error: 'USDA search failed' }, { status: 500 });
     }
 
